@@ -10,13 +10,7 @@
         <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
       </li>
       <li class="nav-item" *ngIf="isAuth"> <!--U zavisnosti od vrednosti isAuth(true ili false), prikazace se ova opcija u navbaru-->
-        <a class="nav-link" routerLink="/addroom" routerLinkActive="active">Add room</a>
-      </li>
-      <li class="nav-item" *ngIf="isAuth">
-        <a class="nav-link" routerLink="/allrooms" routerLinkActive="active">All rooms</a>
-      </li>
-      <li class="nav-item" *ngIf="isAuth">
-        <a class="nav-link" routerLink="/addroomtype" routerLinkActive="active">Add room type</a>
+        <a class="nav-link" routerLink="/dnevni_unos" routerLinkActive="active">Dnevni unos</a>
       </li>
       <li class="nav-item" *ngIf="!isAuth">
         <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>

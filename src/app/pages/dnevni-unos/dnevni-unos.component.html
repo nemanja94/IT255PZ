@@ -1,0 +1,19 @@
+<div class="container mt-3 bg-warning p-3 " style="border-radius: 5px;">
+  <form role="form" [formGroup]="dnevniUnosForm">
+    <div class="alert alert-danger" style="display: none;">
+
+    </div>
+    <div class="form-group">
+      <label for="insulin">Insulin:</label>
+      <input type="text" class="form-control" formControlName='insulin'>
+    </div>
+    <div class="form-group">
+      <label for="datumDu">Datum DU:</label>
+      <input type="date" class="form-control" formControlName='datumDu'></div>
+    <div class="form-group">
+      <label for="kolicinaJedinica">Kolicina jedinica:</label>
+      <input type="text" class="form-control" formControlName='kolicinaJedinica'>
+    </div>
+    <button (click)="dnevni_unos()" class="btn btn-default">Unesi</button>
+  </form>
+</div>
