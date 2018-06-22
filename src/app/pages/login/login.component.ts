@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-    this._http.post('http://localhost/it255pz/loginservice.php', data, {headers: headers}).subscribe((result) => {
+    this._http.post('http://localhost/projects/loginservice.php', data, {headers: headers}).subscribe((result) => {
         const obj = JSON.parse(result['_body']);
         localStorage.setItem('token', obj.token);
         location.reload();

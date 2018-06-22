@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
   public logOut() {
     localStorage.removeItem('token');
     this.isAuth = false;
-    location.reload();
+    // location.reload();
+    this._router.navigateByUrl('/login');
   }
 }

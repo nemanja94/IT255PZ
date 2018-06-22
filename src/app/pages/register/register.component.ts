@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
      * data promenljiva sadrzi sve prikupljene podatke i poslace ih formatirane onako kako bi backend razumeo poruku
      */
     this._http
-      .post('http://localhost/it255pz/registerservice.php', data, {
+      .post('http://localhost/projects/registerservice.php', data, {
         headers: headers
       })
       .subscribe(

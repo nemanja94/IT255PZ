@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mt-2" style="border-radius: 5px;">
   <a class="navbar-brand" routerLink="/">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-    aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
@@ -9,8 +10,13 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
       </li>
-      <li class="nav-item" *ngIf="isAuth"> <!--U zavisnosti od vrednosti isAuth(true ili false), prikazace se ova opcija u navbaru-->
-        <a class="nav-link" routerLink="/dnevni_unos" routerLinkActive="active">Dnevni unos</a>
+      <li class="nav-item" *ngIf="isAuth">
+        <!--U zavisnosti od vrednosti isAuth(true ili false), prikazace se ova opcija u navbaru-->
+        <a class="nav-link" routerLink="/dnevni-unos-insulina" routerLinkActive="active">Dnevni unos insulina</a>
+      </li>
+      <li class="nav-item" *ngIf="isAuth">
+        <!--U zavisnosti od vrednosti isAuth(true ili false), prikazace se ova opcija u navbaru-->
+        <a class="nav-link" routerLink="/dnevni-unos-glikemije" routerLinkActive="active">Dnevni unos glikemije</a>
       </li>
       <li class="nav-item" *ngIf="!isAuth">
         <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>

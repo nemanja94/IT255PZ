@@ -32,18 +32,16 @@ export class DnevniUnosComponent implements OnInit {
       '&datumDu=' +
       this.dnevniUnosForm.value.datumDu +
       '&kolicinaJedinica=' +
-      this.dnevniUnosForm.value.kolicinaJedinica +
-      '&token=' +
-      localStorage.getItem('token');
+      this.dnevniUnosForm.value.kolicinaJedinica;
 
-    console.log(data);
-    console.log(localStorage.getItem('token'));
+    // console.log(data);
+    // console.log(localStorage.getItem('token'));
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('token', localStorage.getItem('token'));
 
-    this._http.post('http://localhost/it255pz/dnevni_unos.php', data, {headers: headers}).subscribe((result) => {
+    this._http.post('http://localhost/projects/dnevni_unos.php', data, {headers: headers}).subscribe((result) => {
       // this._router.navigateByUrl('allrooms');
       this.odg = result.toString();
       console.log('Result odgovor: \n' + this.odg);

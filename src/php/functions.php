@@ -1,7 +1,6 @@
 <?php
 include("config.php");
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     die();
 }
@@ -11,7 +10,7 @@ function checkIfLoggedIn()
     global $conn;
     if (isset($_SERVER['HTTP_TOKEN'])) {
         $token = $_SERVER['HTTP_TOKEN'];
-        $result = $conn->prepare("SELECT * FROM users WHERE token=?");
+        $result = $conn->prepare("SELECT * FROM korisnik WHERE token=?");
         $result->bind_param("s", $token);
         $result->execute();
         $result->store_result();
@@ -32,7 +31,7 @@ function login($username, $password)
     $rarray = array();
     if (checkLogin($username, $password)) {
         $id = sha1(uniqid());
-        $result2 = $conn->prepare("UPDATE users SET token=? WHERE username=?");
+        $result2 = $conn->prepare("UPDATE korisnik SET token=? WHERE username=?");
         $result2->bind_param("ss", $id, $username);
         $result2->execute();
         $rarray['token'] = $id;
@@ -47,7 +46,7 @@ function checkLogin($username, $password)
 {
     global $conn;
     $password = md5($password);
-    $result = $conn->prepare("SELECT * FROM users WHERE username=? AND password=?");
+    $result = $conn->prepare("SELECT * FROM korisnik WHERE username=? AND password=?");
     $result->bind_param("ss", $username, $password);
     $result->execute();
     $result->store_result();
@@ -80,15 +79,15 @@ function register($username, $password, $firstname, $lastname)
         $errors .= "Last name must have at least 3 characters\r\n";
     }
     if ($errors == "") {
-        $stmt = $conn->prepare("INSERT INTO users (firstname, lastname, username, password) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO `korisnik` (`id`, `firstname`, `lastname`, `username`, `password`, `token`) VALUES (NULL, ?, ?, ?, ?, '');");
         $pass = md5($password);
         $stmt->bind_param("ssss", $firstname, $lastname, $username, $pass);
         if ($stmt->execute()) {
-            $id = sha1(uniqid());
-            $result2 = $conn->prepare("UPDATE users SET token=? WHERE username=?");
-            $result2->bind_param("ss", $id, $username);
+            $token = sha1(uniqid());
+            $result2 = $conn->prepare("UPDATE korisnik SET token=? WHERE username=?");
+            $result2->bind_param("ss", $token, $username);
             $result2->execute();
-            $rarray['token'] = $id;
+            $rarray['token'] = $token;
         } else {
             header('HTTP/1.1 400 Bad request');
             $rarray['error'] = "Database connection error";
@@ -97,15 +96,13 @@ function register($username, $password, $firstname, $lastname)
         header('HTTP/1.1 400 Bad request');
         $rarray['error'] = json_encode($errors);
     }
-
     return json_encode($rarray);
 }
 
 function checkIfUserExists($username)
 {
-
     global $conn;
-    $result = $conn->prepare("SELECT * FROM users WHERE username=?");
+    $result = $conn->prepare("SELECT * FROM korisnik WHERE username=?");
     $result->bind_param("s", $username);
     $result->execute();
     $result->store_result();
@@ -117,32 +114,43 @@ function checkIfUserExists($username)
     }
 }
 
-function dnevniUnos($insulin, $datumDu, $kolicinaJedinica, $token)
+function getId()
+{
+    global $conn;
+    $token = $_SERVER['HTTP_TOKEN'];
+
+    $result = $conn->prepare("SELECT id FROM korisnik where token = ?");
+    $result->bind_param("s", $token);
+    $result->execute();
+    $result->bind_result($id);
+
+    while ($row = $result->fetch()) {
+        return $id;
+    }
+}
+
+function dnevniUnosInsulina($vrstaInsulina, $vrednostInsulina, $vremeUnosa, $datumUnosa)
 {
     global $conn;
     $rarray = array();
+    $token = $_SERVER['HTTP_TOKEN'];
 
     if (checkIfLoggedIn()) {
 
-        $stmt = $conn->prepare("SELECT id FROM users where token = ?");
-        $stmt->bind_param("s", $token);
-        $stmt->execute();
+        $userId = getId();
 
-        $row = $stmt->fetch_assoc();
-        $user_id = $row['id'];
-
-        $stmt = $conn->prepare("INSERT INTO dnevni_unos (KORISNIK_ID, INSULIN, DATUM_DU, KOLICINA_JEDINICA) values (?, ?, ?, ?)");
-        $stmt->bind_param("issi", $user_id, $insulin, $datumDu, $kolicinaJedinica);
-
-        if ($stmt->execute()) {
-            $rarray['success'] = "ok";
+        $result2 = $conn->prepare("INSERT INTO insulin (id, datum, vreme, vrednost, vrsta_insulina) values (?, ?, ?, ?, ?)");
+        $result2->bind_param("issis", $userId, $datumUnosa, $vremeUnosa, $vrednostInsulina, $vrstaInsulina);
+        if ($result2->execute()) {
+            $rarray['success'] = $userId;
         } else {
-            $rarray['error'] = "Database connection error" . $stmt->error;
+            $rarray['error'] = "Database connection error" . $result2->error;
+            //$result2->error
         }
-
     } else {
         $rarray['error'] = "Please log in";
         header('HTTP/1.1 401 Unauthorized');
     }
+
     return json_encode($rarray);
 }
