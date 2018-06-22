@@ -9,9 +9,9 @@ import {HomeComponent} from './pages/home/home.component';
 import {LoginComponent} from './pages/login/login.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {AppRoutingModule} from './app-routing/app-routing.module';
-import {DnevniUnosComponent} from './pages/dnevni-unos/dnevni-unos.component';
 import {DnevniUnosGlikemijeComponent} from './pages/dnevni-unos-glikemije/dnevni-unos-glikemije.component';
 import {DnevniUnosInsulinaComponent} from './pages/dnevni-unos-insulina/dnevni-unos-insulina.component';
+import {DnevnikComponent} from './pages/dnevnik/dnevnik.component';
 
 @NgModule({
   declarations: [
@@ -19,9 +19,9 @@ import {DnevniUnosInsulinaComponent} from './pages/dnevni-unos-insulina/dnevni-u
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    DnevniUnosComponent,
     DnevniUnosGlikemijeComponent,
-    DnevniUnosInsulinaComponent
+    DnevniUnosInsulinaComponent,
+    DnevnikComponent
   ],
   imports: [
     BrowserModule,

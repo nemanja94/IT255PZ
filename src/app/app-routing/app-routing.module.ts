@@ -7,14 +7,15 @@ import {LoginComponent} from '../pages/login/login.component';
 import {RegisterComponent} from '../pages/register/register.component';
 import {DnevniUnosInsulinaComponent} from '../pages/dnevni-unos-insulina/dnevni-unos-insulina.component';
 import {DnevniUnosGlikemijeComponent} from '../pages/dnevni-unos-glikemije/dnevni-unos-glikemije.component';
+import {DnevnikComponent} from '../pages/dnevnik/dnevnik.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  // { path: 'dnevni_unos', component: DnevniUnosComponent }
-  {path: 'dnevni-unos-insulina', component: DnevniUnosInsulinaComponent},
-  {path: 'dnevni-unos-glikemije', component: DnevniUnosGlikemijeComponent}
+  {path: 'dzi', component: DnevniUnosInsulinaComponent},
+  {path: 'dzg', component: DnevniUnosGlikemijeComponent},
+  {path: 'dnevnik', component: DnevnikComponent}
 ];
 
 @NgModule({

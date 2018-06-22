@@ -35,6 +35,7 @@ export class DnevniUnosGlikemijeComponent implements OnInit {
     this._http.post('http://localhost/projects/dnevni_unos_glikemije.php', data, {headers: headers}).subscribe(
       (result) => {
         console.log(result.toString());
+        location.reload();
       },
       (error) => {
         console.log(error.toString());

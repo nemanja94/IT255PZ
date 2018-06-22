@@ -1,0 +1,49 @@
+<div class="container mt-5">
+  <div class="container">
+    <h2 class="text-info text-center">Dijabet dnevnik</h2>
+    <table class="table" style="border: 1px solid dodgerblue; border-radius: 5px;">
+      <thead>
+      <tr>
+        <th>Vrsta insulina</th>
+        <th>Datum</th>
+        <th>Vreme</th>
+        <th>Vrednost insulina</th>
+        <th>Datum</th>
+        <th>Vreme</th>
+        <th>Vrednost glikemija</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let zapis of dnevnik">
+        <td>{{zapis.vrstaInsulina}}</td>
+        <td>{{zapis.datumUnosaInsulina}}</td>
+        <td>{{zapis.vremeUnosaInsulina}}</td>
+        <td>{{zapis.vrednostInsulina}}</td>
+        <td>{{zapis.datumUnosaGlikemije}}</td>
+        <td>{{zapis.vremeUnosaGlikemije}}</td>
+        <td>{{zapis.vrednostGlikemije}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--<div class="container">-->
+  <!--<h2 class="text-info text-center mt-5">Dnevnik glikemije</h2>-->
+  <!--<table class="table" style="border: 1px solid dodgerblue; border-radius: 5px;">-->
+  <!--<thead>-->
+  <!--<tr>-->
+  <!--<th>Datum</th>-->
+  <!--<th>Vreme</th>-->
+  <!--<th>Vrednost glikemija</th>-->
+  <!--</tr>-->
+  <!--</thead>-->
+  <!--<tbody>-->
+  <!--<tr *ngFor="let zapis of dnevnik">-->
+  <!--<td>{{zapis.datumUnosaGlikemije}}</td>-->
+  <!--<td>{{zapis.vremeUnosaGlikemije}}</td>-->
+  <!--<td>{{zapis.vrednostGlikemije}}</td>-->
+  <!--</tr>-->
+  <!--</tbody>-->
+  <!--</table>-->
+  <!--</div>-->
+</div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 22, 2018 at 09:40 AM
+-- Generation Time: Jun 22, 2018 at 02:21 PM
 -- Server version: 10.2.15-MariaDB
 -- PHP Version: 7.2.6
 
@@ -42,18 +42,13 @@ CREATE TABLE IF NOT EXISTS `glikemija` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Truncate table before insert `glikemija`
---
-
-TRUNCATE TABLE `glikemija`;
---
 -- Dumping data for table `glikemija`
 --
 
 INSERT INTO `glikemija` (`id_glikemija`, `id`, `datumG`, `vremeG`, `vrednostG`) VALUES
-(1, 1, '2018-06-21', '24:11:00', 22.5),
-(2, 4, '2018-06-27', '29:20:17', 12.5),
-(3, 3, '2018-06-22', '00:12:00', 1);
+(1, 1, '2018-06-25', '03:15:00', 4),
+(2, 1, '2018-06-26', '04:16:00', 5),
+(3, 1, '2018-06-27', '17:17:00', 7);
 
 -- --------------------------------------------------------
 
@@ -74,18 +69,13 @@ CREATE TABLE IF NOT EXISTS `insulin` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
--- Truncate table before insert `insulin`
---
-
-TRUNCATE TABLE `insulin`;
---
 -- Dumping data for table `insulin`
 --
 
 INSERT INTO `insulin` (`id_insulin`, `id`, `datum`, `vreme`, `vrednost`, `vrsta_insulina`) VALUES
-(1, 4, '2018-06-22', '12:12:00', 4, 'Brzodelujuci'),
-(2, 4, '2018-08-22', '12:12:00', 7, 'Sporo delujuci'),
-(3, 3, '2018-06-02', '03:33:00', 7, 'Brzodelujuci');
+(1, 1, '2018-06-22', '00:12:00', 1, 'Brzodelujuci'),
+(2, 1, '2018-06-23', '01:13:00', 2, 'Sporo delujuci'),
+(3, 1, '2018-06-24', '02:14:00', 3, 'Brzodelujuci');
 
 -- --------------------------------------------------------
 
@@ -102,22 +92,14 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
   `password` varchar(128) NOT NULL,
   `token` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
---
--- Truncate table before insert `korisnik`
---
-
-TRUNCATE TABLE `korisnik`;
 --
 -- Dumping data for table `korisnik`
 --
 
 INSERT INTO `korisnik` (`id`, `firstname`, `lastname`, `username`, `password`, `token`) VALUES
-(1, 'test', 'test', 'test', 'test', 'test'),
-(2, 'Marko', 'Markovic', 'mare@mail.com', 'mare1211', ''),
-(3, 'Nemanja', 'Andric', 'nemanja@mail.com', '08eaf4e07c1647c9aac207b0dae29486', '647c617c1a86bbfb1f51f5524aaae6642bfd22ca'),
-(4, 'Zarko', 'Zarkovic', 'zare@mail.com', '670c8d865b2e4cb3e458663819c1eafc', '73c85a0aad35dea4fdf6c9a931c4279a3d862ac8');
+(1, 'Nemanja', 'Andric', 'nemanja@mail.com', '08eaf4e07c1647c9aac207b0dae29486', '2b23f7fef3db81bfe03f9fb3776aec725125622c');
 
 --
 -- Constraints for dumped tables

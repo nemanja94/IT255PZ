@@ -19,7 +19,7 @@ export class DnevniUnosInsulinaComponent implements OnInit {
     vrstaInsulina: new FormControl()
   });
 
-  constructor(private _http: Http, private router: Router) {
+  constructor(private _http: Http, private _router: Router) {
   }
 
   ngOnInit() {
@@ -39,6 +39,7 @@ export class DnevniUnosInsulinaComponent implements OnInit {
     this._http.post('http://localhost/projects/dnevni_unos_insulina.php', data, {headers: headers}).subscribe(
       (result) => {
         console.log('Result: \n' + result.toString());
+        location.reload();
       },
       (error) => {
         console.log('Error; \n' + error.toString());

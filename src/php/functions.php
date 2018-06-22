@@ -133,7 +133,6 @@ function dnevniUnosInsulina($vrstaInsulina, $vrednostInsulina, $vremeUnosa, $dat
 {
     global $conn;
     $rarray = array();
-    $token = $_SERVER['HTTP_TOKEN'];
 
     if (checkIfLoggedIn()) {
 
@@ -142,7 +141,7 @@ function dnevniUnosInsulina($vrstaInsulina, $vrednostInsulina, $vremeUnosa, $dat
         $result2 = $conn->prepare("INSERT INTO insulin (id, datum, vreme, vrednost, vrsta_insulina) values (?, ?, ?, ?, ?)");
         $result2->bind_param("issis", $userId, $datumUnosa, $vremeUnosa, $vrednostInsulina, $vrstaInsulina);
         if ($result2->execute()) {
-            $rarray['success'] = $userId;
+            $rarray['success'] = 'ok';
         } else {
             $rarray['error'] = "Database connection error" . $result2->error;
             //$result2->error
@@ -159,7 +158,6 @@ function dnevniUnosGlikemije($vrednostGlikemije, $datumUnosa, $vremeUnosa)
 {
     global $conn;
     $rarray = array();
-    $token = $_SERVER['HTTP_TOKEN'];
 
     if (checkIfLoggedIn()) {
 
@@ -168,7 +166,7 @@ function dnevniUnosGlikemije($vrednostGlikemije, $datumUnosa, $vremeUnosa)
         $result2 = $conn->prepare("INSERT INTO `glikemija` (`id`, `datumG`, `vremeG`, `vrednostG`) VALUES (?, ?, ?, ?);");
         $result2->bind_param("issi", $userId, $datumUnosa, $vremeUnosa, $vrednostGlikemije);
         if ($result2->execute()) {
-            $rarray['success'] = $userId;
+            $rarray['success'] = 'ok';
         } else {
             $rarray['error'] = "Database connection error" . $result2->error;
             //$result2->error
@@ -179,4 +177,53 @@ function dnevniUnosGlikemije($vrednostGlikemije, $datumUnosa, $vremeUnosa)
     }
 
     return json_encode($rarray);
+}
+
+function getDnevnik()
+{
+    global $conn;
+    $rarray = array();
+    $user_id = getId();
+    $zapisi = array();
+    $zapis = array();
+
+    if (checkIfLoggedIn()) {
+
+        $stmt = $conn->prepare('SELECT DISTINCT glikemija.datumG,
+                                          glikemija.vremeG,
+                                          glikemija.vrednostG,
+                                          insulin.datum,
+                                          insulin.vreme,
+                                          insulin.vrednost,
+                                          insulin.vrsta_insulina
+                                    from glikemija
+                                    INNER JOIN insulin on glikemija.id = insulin.id
+                                    WHERE glikemija.id = ?');
+
+        $stmt->bind_param('i', $user_id);
+        $stmt->bind_result($v1, $v2, $v3, $v4, $v5, $v6, $v7);
+        $stmt->execute();
+
+        while ($row = $stmt->fetch()) {
+
+            $zapis['datumUnosaGlikemije'] = $v1;
+            $zapis['vremeUnosaGlikemije'] = $v2;
+            $zapis['vrednostGlikemije'] = $v3;
+            $zapis['datumUnosaInsulina'] = $v4;
+            $zapis['vremeUnosaInsulina'] = $v5;
+            $zapis['vrednostInsulina'] = $v6;
+            $zapis['vrstaInsulina'] = $v7;
+
+            array_push($zapisi, $zapis);
+        }
+
+
+        $rarray['zapisi'] = $zapisi;
+        return json_encode($rarray);
+
+    } else {
+        $rarray['error'] = "Please log in";
+        header('HTTP/1.1 401 Unauthorized');
+        return json_encode($rarray);
+    }
 }
