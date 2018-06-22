@@ -13,8 +13,6 @@ if (isset($_POST['vrstaInsulina']) && isset($_POST['vrednostInsulina']) && isset
     $vrednostInsulina = htmlspecialchars($_POST['vrednostInsulina']);
     $vremeUnosa = htmlspecialchars($_POST['vremeUnosa']);
     $datumUnosa = htmlspecialchars($_POST['datumUnosa']);
-//    $token = $_SERVER['HTTP_TOKEN'];
-
 
     echo dnevniUnosInsulina($vrstaInsulina, $vrednostInsulina, $vremeUnosa, $datumUnosa);
 }

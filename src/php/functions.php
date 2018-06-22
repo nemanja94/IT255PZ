@@ -154,3 +154,29 @@ function dnevniUnosInsulina($vrstaInsulina, $vrednostInsulina, $vremeUnosa, $dat
 
     return json_encode($rarray);
 }
+
+function dnevniUnosGlikemije($vrednostGlikemije, $datumUnosa, $vremeUnosa)
+{
+    global $conn;
+    $rarray = array();
+    $token = $_SERVER['HTTP_TOKEN'];
+
+    if (checkIfLoggedIn()) {
+
+        $userId = getId();
+
+        $result2 = $conn->prepare("INSERT INTO `glikemija` (`id`, `datumG`, `vremeG`, `vrednostG`) VALUES (?, ?, ?, ?);");
+        $result2->bind_param("issi", $userId, $datumUnosa, $vremeUnosa, $vrednostGlikemije);
+        if ($result2->execute()) {
+            $rarray['success'] = $userId;
+        } else {
+            $rarray['error'] = "Database connection error" . $result2->error;
+            //$result2->error
+        }
+    } else {
+        $rarray['error'] = "Please log in";
+        header('HTTP/1.1 401 Unauthorized');
+    }
+
+    return json_encode($rarray);
+}
