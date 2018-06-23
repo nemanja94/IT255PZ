@@ -197,10 +197,11 @@ function getDnevnik()
                                           insulin.vrednost,
                                           insulin.vrsta_insulina
                                     from glikemija
-                                    INNER JOIN insulin on glikemija.id = insulin.id
-                                    WHERE glikemija.id = ?');
+                                    JOIN insulin on glikemija.id_glikemija = insulin.id_insulin
+                                    WHERE glikemija.id = ? and insulin.id = ?
+                                    order by glikemija.datumG desc');
 
-        $stmt->bind_param('i', $user_id);
+        $stmt->bind_param('ii', $user_id, $user_id);
         $stmt->bind_result($v1, $v2, $v3, $v4, $v5, $v6, $v7);
         $stmt->execute();
 

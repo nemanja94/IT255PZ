@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Headers, Http} from '@angular/http';
 import {Router} from '@angular/router';
@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
         alert(JSON.parse(err._body).error);
       }
     );
+    this._router.navigateByUrl('/home');
   }
 
 }

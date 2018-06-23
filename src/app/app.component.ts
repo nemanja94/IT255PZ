@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   public isAuth: boolean; // Promenljiva koja pokaziuje da li je korisnik ulogovan
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router) {
+  }
 
   /**
    * ngOnInit() funkcija je ugradjena u sam Angular i pri pokretanju servera, ona se prvo izvrsava,
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
       this.isAuth = true;
     } else {
       this.isAuth = false;
+      this._router.navigateByUrl('home');
     }
   }
 
