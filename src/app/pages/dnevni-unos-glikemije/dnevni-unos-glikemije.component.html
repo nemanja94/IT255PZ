@@ -9,13 +9,8 @@
     </div>
 
     <div class="form-group">
-      <label for="datumUnosa">Datum unosa</label>
-      <input type="date" class="form-control" formControlName='datumUnosa' required>
-    </div>
-
-    <div class="form-group">
-      <label for="vremeUnosa">Vreme unosa</label>
-      <input type="time" class="form-control" formControlName='vremeUnosa' required>
+      <label for="vremeDatumUnosa">Vreme i datum unosa</label>
+      <input type="datetime-local" class="form-control" formControlName='vremeDatumUnosa' required>
     </div>
 
     <button (click)="dnevni_unos_glikemije()" class="btn btn-default">Unesi</button>

@@ -29,4 +29,22 @@ export class DnevnikComponent implements OnInit {
     );
   }
 
+  public obirsi_unos(id: number) {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    headers.append('token', localStorage.getItem('token'));
+
+    const data = 'id=' + id;
+
+    this._http.post('http://localhost/projects/obrisi_unos.php', data, {headers: headers}).subscribe(
+      response => {
+        console.log(response.toString());
+        location.reload();
+      },
+      error => {
+        console.log(error.toString());
+      }
+    );
+  }
+
 }

@@ -11,8 +11,7 @@ import {Router} from '@angular/router';
 export class DnevniUnosGlikemijeComponent implements OnInit {
 
   public dnevniUnosGlikemijeForm = new FormGroup({
-    datumUnosa: new FormControl(),
-    vremeUnosa: new FormControl(),
+    vremeDatumUnosa: new FormControl(),
     vrednostGlikemije: new FormControl()
   });
 
@@ -25,8 +24,7 @@ export class DnevniUnosGlikemijeComponent implements OnInit {
   public dnevni_unos_glikemije() {
     const data =
       'vrednostGlikemije=' + this.dnevniUnosGlikemijeForm.value.vrednostGlikemije +
-      '&datumUnosa=' + this.dnevniUnosGlikemijeForm.value.datumUnosa +
-      '&vremeUnosa=' + this.dnevniUnosGlikemijeForm.value.vremeUnosa;
+      '&vremeDatumUnosa=' + this.dnevniUnosGlikemijeForm.value.vremeDatumUnosa;
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');

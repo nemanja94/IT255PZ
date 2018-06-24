@@ -5,14 +5,11 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Autho
 
 include("functions.php");
 
-if (isset($_POST['vrednostGlikemije']) && isset($_POST['datumUnosa']) && isset($_POST['vremeUnosa'])) {
-
-//    && isset($_POST['token'])
+if (isset($_POST['vrednostGlikemije']) && isset($_POST['vremeDatumUnosa'])) {
 
     $vrednostGlikemije = htmlspecialchars($_POST['vrednostGlikemije']);
-    $datumUnosa = htmlspecialchars($_POST['datumUnosa']);
-    $vremeUnosa = htmlspecialchars($_POST['vremeUnosa']);
+    $vremeDatumUnosa = htmlspecialchars($_POST['vremeDatumUnosa']);
 
-    echo dnevniUnosGlikemije($vrednostGlikemije, $datumUnosa, $vremeUnosa);
+    echo dnevniUnosGlikemije($vrednostGlikemije, $vremeDatumUnosa);
 }
 ?>

@@ -13,8 +13,7 @@ export class DnevniUnosInsulinaComponent implements OnInit {
   tipoviInsulina = ['Brzodelujuci', 'Sporo delujuci'];
 
   public dnevniUnosInsulinaForm = new FormGroup({
-    datumUnosa: new FormControl(),
-    vremeUnosa: new FormControl(),
+    vremeDatumUnosa: new FormControl(),
     vrednostInsulina: new FormControl(),
     vrstaInsulina: new FormControl()
   });
@@ -29,8 +28,7 @@ export class DnevniUnosInsulinaComponent implements OnInit {
     const data =
       'vrstaInsulina=' + this.dnevniUnosInsulinaForm.value.vrstaInsulina +
       '&vrednostInsulina=' + this.dnevniUnosInsulinaForm.value.vrednostInsulina +
-      '&vremeUnosa=' + this.dnevniUnosInsulinaForm.value.vremeUnosa +
-      '&datumUnosa=' + this.dnevniUnosInsulinaForm.value.datumUnosa;
+      '&vremeDatumUnosa=' + this.dnevniUnosInsulinaForm.value.vremeDatumUnosa;
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');

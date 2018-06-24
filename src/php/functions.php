@@ -129,7 +129,7 @@ function getId()
     }
 }
 
-function dnevniUnosInsulina($vrstaInsulina, $vrednostInsulina, $vremeUnosa, $datumUnosa)
+function dnevniUnosInsulina($vrstaInsulina, $vrednostInsulina, $vremeDatumUnosa)
 {
     global $conn;
     $rarray = array();
@@ -137,9 +137,10 @@ function dnevniUnosInsulina($vrstaInsulina, $vrednostInsulina, $vremeUnosa, $dat
     if (checkIfLoggedIn()) {
 
         $userId = getId();
+        $tip_unosa = "Insulin";
 
-        $result2 = $conn->prepare("INSERT INTO insulin (id, datum, vreme, vrednost, vrsta_insulina) values (?, ?, ?, ?, ?)");
-        $result2->bind_param("issis", $userId, $datumUnosa, $vremeUnosa, $vrednostInsulina, $vrstaInsulina);
+        $result2 = $conn->prepare("INSERT INTO istorija_merenja (id, DATUM_I_VREME_IM, VREDNOST, TIP_INSULINA, TIP_UNOSA) values (?, ?, ?, ?, ?)");
+        $result2->bind_param("isiss", $userId, $vremeDatumUnosa, $vrednostInsulina, $vrstaInsulina, $tip_unosa);
         if ($result2->execute()) {
             $rarray['success'] = 'ok';
         } else {
@@ -154,7 +155,7 @@ function dnevniUnosInsulina($vrstaInsulina, $vrednostInsulina, $vremeUnosa, $dat
     return json_encode($rarray);
 }
 
-function dnevniUnosGlikemije($vrednostGlikemije, $datumUnosa, $vremeUnosa)
+function dnevniUnosGlikemije($vrednostGlikemije, $vremeDatumUnosa)
 {
     global $conn;
     $rarray = array();
@@ -162,9 +163,10 @@ function dnevniUnosGlikemije($vrednostGlikemije, $datumUnosa, $vremeUnosa)
     if (checkIfLoggedIn()) {
 
         $userId = getId();
+        $tip_unosa = "Glikemija";
 
-        $result2 = $conn->prepare("INSERT INTO `glikemija` (`id`, `datumG`, `vremeG`, `vrednostG`) VALUES (?, ?, ?, ?);");
-        $result2->bind_param("issi", $userId, $datumUnosa, $vremeUnosa, $vrednostGlikemije);
+        $result2 = $conn->prepare("INSERT INTO istorija_merenja (id, DATUM_I_VREME_IM, VREDNOST, TIP_INSULINA, TIP_UNOSA) VALUES (?, ?, ?, 'null', ?);");
+        $result2->bind_param("isis", $userId, $vremeDatumUnosa, $vrednostGlikemije, $tip_unosa);
         if ($result2->execute()) {
             $rarray['success'] = 'ok';
         } else {
@@ -189,31 +191,26 @@ function getDnevnik()
 
     if (checkIfLoggedIn()) {
 
-        $stmt = $conn->prepare('SELECT DISTINCT glikemija.datumG,
-                                          glikemija.vremeG,
-                                          glikemija.vrednostG,
-                                          insulin.datum,
-                                          insulin.vreme,
-                                          insulin.vrednost,
-                                          insulin.vrsta_insulina
-                                    from glikemija
-                                    JOIN insulin on glikemija.id_glikemija = insulin.id_insulin
-                                    WHERE glikemija.id = ? and insulin.id = ?
-                                    order by glikemija.datumG desc');
+        $stmt = $conn->prepare('SELECT  
+                                        istorija_merenja.ISTORIJA_MERENJA_ID,                                       
+                                        istorija_merenja.DATUM_I_VREME_IM, 
+                                        istorija_merenja.VREDNOST, 
+                                        istorija_merenja.TIP_INSULINA, 
+                                        istorija_merenja.TIP_UNOSA 
+                                        FROM  istorija_merenja
+                                        where id=?');
 
-        $stmt->bind_param('ii', $user_id, $user_id);
-        $stmt->bind_result($v1, $v2, $v3, $v4, $v5, $v6, $v7);
+        $stmt->bind_param('i', $user_id);
+        $stmt->bind_result($v1, $v2, $v3, $v4, $v5);
         $stmt->execute();
 
         while ($row = $stmt->fetch()) {
 
-            $zapis['datumUnosaGlikemije'] = $v1;
-            $zapis['vremeUnosaGlikemije'] = $v2;
-            $zapis['vrednostGlikemije'] = $v3;
-            $zapis['datumUnosaInsulina'] = $v4;
-            $zapis['vremeUnosaInsulina'] = $v5;
-            $zapis['vrednostInsulina'] = $v6;
-            $zapis['vrstaInsulina'] = $v7;
+            $zapis['ISTORIJA_MERENJA_ID'] = $v1;
+            $zapis['DATUM_I_VREME_IM'] = $v2;
+            $zapis['VREDNOST'] = $v3;
+            $zapis['TIP_INSULINA'] = $v4;
+            $zapis['TIP_UNOSA'] = $v5;
 
             array_push($zapisi, $zapis);
         }
@@ -227,4 +224,21 @@ function getDnevnik()
         header('HTTP/1.1 401 Unauthorized');
         return json_encode($rarray);
     }
+}
+
+function obirsi_unos($id)
+{
+    global $conn;
+    $rarray = array();
+
+    if (checkIfLoggedIn()) {
+        $result = $conn->prepare("DELETE FROM istorija_merenja WHERE ISTORIJA_MERENJA_ID=?");
+        $result->bind_param("i", $id);
+        $result->execute();
+        $rarray['success'] = "Deleted successfully";
+    } else {
+        $rarray['error'] = "Please log in";
+        header('HTTP/1.1 401 Unauthorized');
+    }
+    return json_encode($rarray);
 }

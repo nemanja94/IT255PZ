@@ -4,28 +4,32 @@
     <table class="table" style="border: 1px solid #428bca; border-radius: 5px;">
       <thead>
       <tr>
-        <th class="text-center text-info" colspan="4" style="border: 1px solid #428bca">Insulin</th>
-        <th class="text-center text-success" colspan="3" style="border: 1px solid #5cb85c">Glikemija</th>
+        <th class="text-center text-info" colspan="5" style="border: 1px solid #428bca">Insulin</th>
+        <!--<th class="text-center text-success" colspan="3" style="border: 1px solid #5cb85c">Glikemija</th>-->
       </tr>
       <tr class="text-center">
-        <th class="text-info" style="border: 1px solid #428bca">Vrsta insulina</th>
-        <th class="text-info" style="border: 1px solid #428bca">Datum</th>
-        <th class="text-info" style="border: 1px solid #428bca">Vreme</th>
-        <th class="text-info" style="border: 1px solid #428bca">Vrednost insulina</th>
-        <th class="text-success" style="border: 1px solid #5cb85c">Datum</th>
-        <th class="text-success" style="border: 1px solid #5cb85c">Vreme</th>
-        <th class="text-success" style="border: 1px solid #5cb85c">Vrednost glikemija</th>
+        <th class="text-info" style="border: 1px solid #428bca">DATUM_I_VREME_IM</th>
+        <th class="text-info" style="border: 1px solid #428bca">VREDNOST</th>
+        <th class="text-info" style="border: 1px solid #428bca">TIP_INSULINA</th>
+        <th class="text-info" style="border: 1px solid #428bca">TIP_UNOSA</th>
+        <th class="text-info" style="border: 1px solid #428bca"></th>
+        <!--<th class="text-success" style="border: 1px solid #5cb85c">Datum</th>-->
+        <!--<th class="text-success" style="border: 1px solid #5cb85c">Vreme</th>-->
+        <!--<th class="text-success" style="border: 1px solid #5cb85c">Vrednost glikemija</th>-->
       </tr>
       </thead>
       <tbody>
       <tr class="text-center" *ngFor="let zapis of dnevnik">
-        <td class="text-info" style="border: 1px solid #428bca">{{zapis.vrstaInsulina}}</td>
-        <td class="text-info" style="border: 1px solid #428bca">{{zapis.datumUnosaInsulina}}</td>
-        <td class="text-info" style="border: 1px solid #428bca">{{zapis.vremeUnosaInsulina}}</td>
-        <td class="text-info" style="border: 1px solid #428bca">{{zapis.vrednostInsulina}}</td>
-        <td class="text-success" style="border: 1px solid #5cb85c">{{zapis.datumUnosaGlikemije}}</td>
-        <td class="text-success" style="border: 1px solid #5cb85c">{{zapis.vremeUnosaGlikemije}}</td>
-        <td class="text-success" style="border: 1px solid #5cb85c">{{zapis.vrednostGlikemije}}</td>
+        <td class="text-info" style="border: 1px solid #428bca">{{zapis.DATUM_I_VREME_IM}}</td>
+        <td class="text-info" style="border: 1px solid #428bca">{{zapis.VREDNOST}}</td>
+        <td class="text-info" style="border: 1px solid #428bca">{{zapis.TIP_INSULINA}}</td>
+        <td class="text-info" style="border: 1px solid #428bca">{{zapis.TIP_UNOSA}}</td>
+        <td class="text-info" style="border: 1px solid #428bca">
+          <button class="btn btn-outline-danger" (click)="obirsi_unos(zapis.ISTORIJA_MERENJA_ID)">Obrisi unos</button>
+        </td>
+        <!--<td class="text-success" style="border: 1px solid #5cb85c">{{zapis.datumUnosaGlikemije}}</td>-->
+        <!--<td class="text-success" style="border: 1px solid #5cb85c">{{zapis.vremeUnosaGlikemije}}</td>-->
+        <!--<td class="text-success" style="border: 1px solid #5cb85c">{{zapis.vrednostGlikemije}}</td>-->
       </tr>
       </tbody>
     </table>
