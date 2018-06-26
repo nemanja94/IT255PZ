@@ -8,6 +8,8 @@ import {Router} from '@angular/router';
 })
 export class AppComponent implements OnInit {
   public isAuth: boolean; // Promenljiva koja pokaziuje da li je korisnik ulogovan
+  public isAdmin: boolean; // Promenljiva koja ce imati vrednost true ukoliko je username === nemanja@mail.com
+  private username = localStorage.getItem('username'); // Promenljiva u kojoj ce se nalazit username korisnika koji se trenutno prijavljuje
 
   constructor(private _router: Router) {
   }
@@ -23,8 +25,15 @@ export class AppComponent implements OnInit {
   public ngOnInit() {
     if (localStorage.getItem('token')) {
       this.isAuth = true;
+      if (localStorage.getItem('username') === 'admin') {
+        this.isAdmin = true;
+        this._router.navigateByUrl('/users');
+      } else {
+        this.isAdmin = false;
+      }
     } else {
       this.isAuth = false;
+      this.isAdmin = false;
       this._router.navigateByUrl('home');
     }
   }

@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 24, 2018 at 11:15 AM
+-- Generation Time: Jun 26, 2018 at 09:23 AM
 -- Server version: 10.2.15-MariaDB
 -- PHP Version: 7.2.6
 
@@ -116,15 +116,17 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
   `password` varchar(128) NOT NULL,
   `token` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `korisnik`
 --
 
 INSERT INTO `korisnik` (`id`, `firstname`, `lastname`, `username`, `password`, `token`) VALUES
-(1, 'Nemanja', 'Andric', 'nemanja@mail.com', '08eaf4e07c1647c9aac207b0dae29486', 'd816f6332fd2592e7516b665514ca5eac7da3d14'),
-(2, 'Sarita', 'Sarita', 'sarita', 'fb4e529ea6b9320c8bd32577f78a7fdf', '8d548da07c5368661041cdf0462d44c1146f129d');
+(1, 'Nemanja', 'Andric', 'nemanja@mail.com', '08eaf4e07c1647c9aac207b0dae29486', 'fb27054fd92afb0e8e5633d190375526cde187f4'),
+(5, 'Stanko', 'Stankovic', 'stane@mail.com', '670c8d865b2e4cb3e458663819c1eafc', 'f71af293f29587173b6abb66e4b34ced8201e58b'),
+(6, 'Marko', 'Markovic', 'mare@mail.com', '45717c759fdf6ce85e1810d938ea73d8', '337e6059ba83cd5e255c2e6f361f4bddcb5edfaa'),
+(7, 'Admin', 'Administratovic', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'feaac8517c8f87be9e3de4f430885296e36d1957');
 
 --
 -- Constraints for dumped tables

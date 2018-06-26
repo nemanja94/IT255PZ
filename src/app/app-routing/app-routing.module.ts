@@ -8,6 +8,9 @@ import {RegisterComponent} from '../pages/register/register.component';
 import {DnevniUnosInsulinaComponent} from '../pages/dnevni-unos-insulina/dnevni-unos-insulina.component';
 import {DnevniUnosGlikemijeComponent} from '../pages/dnevni-unos-glikemije/dnevni-unos-glikemije.component';
 import {DnevnikComponent} from '../pages/dnevnik/dnevnik.component';
+import {Hba1cComponent} from '../pages/hba1c/hba1c.component';
+import {IzmeniKorisnikaComponent} from '../pages/izmeni-korisnika/izmeni-korisnika.component';
+import {KorisniciComponent} from '../pages/korisnici/korisnici.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -15,7 +18,10 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'dzi', component: DnevniUnosInsulinaComponent},
   {path: 'dzg', component: DnevniUnosGlikemijeComponent},
-  {path: 'dnevnik', component: DnevnikComponent}
+  {path: 'dnevnik', component: DnevnikComponent},
+  {path: 'hba1c', component: Hba1cComponent},
+  {path: 'users', component: KorisniciComponent},
+  {path: 'updateUser', component: IzmeniKorisnikaComponent}
 ];
 
 @NgModule({

@@ -79,7 +79,7 @@ function register($username, $password, $firstname, $lastname)
         $errors .= "Last name must have at least 3 characters\r\n";
     }
     if ($errors == "") {
-        $stmt = $conn->prepare("INSERT INTO `korisnik` (`id`, `firstname`, `lastname`, `username`, `password`, `token`) VALUES (NULL, ?, ?, ?, ?, '');");
+        $stmt = $conn->prepare("INSERT INTO korisnik (id, firstname, lastname, username, password, token) VALUES (NULL, ?, ?, ?, ?, '');");
         $pass = md5($password);
         $stmt->bind_param("ssss", $firstname, $lastname, $username, $pass);
         if ($stmt->execute()) {
@@ -240,5 +240,172 @@ function obirsi_unos($id)
         $rarray['error'] = "Please log in";
         header('HTTP/1.1 401 Unauthorized');
     }
+    return json_encode($rarray);
+}
+
+function getHba1c()
+{
+    global $conn;
+    $rarray = array();
+    $user_id = getId();
+    $zbir_vrednosti_glikemija = 0;
+    $brojac = 0;
+
+    if (checkIfLoggedIn()) {
+
+        $stmt = $conn->prepare('SELECT istorija_merenja.VREDNOST FROM istorija_merenja
+        where istorija_merenja.id=? and istorija_merenja.TIP_UNOSA="Glikemija"');
+
+        $stmt->bind_param('i', $user_id);
+        $stmt->bind_result($v1);
+        $stmt->execute();
+
+        while ($row = $stmt->fetch()) {
+
+            $zbir_vrednosti_glikemija += $row['VREDNOST'];
+            $brojac++;
+
+        }
+        $hbcb1 = $zbir_vrednosti_glikemija / $brojac;
+
+
+        return json_encode($hbcb1);
+
+    } else {
+        $rarray['error'] = "Please log in";
+        header('HTTP/1.1 401 Unauthorized');
+        return json_encode($rarray);
+    }
+}
+
+function obirsi_korisnika($id)
+{
+    global $conn;
+    $rarray = array();
+
+    if (checkIfLoggedIn()) {
+        $result = $conn->prepare("DELETE FROM korisnik WHERE id=?");
+        $result->bind_param("i", $id);
+        $result->execute();
+        $rarray['success'] = "Deleted successfully";
+    } else {
+        $rarray['error'] = "Please log in";
+        header('HTTP/1.1 401 Unauthorized');
+    }
+    return json_encode($rarray);
+}
+
+function getUsers()
+{
+    global $conn;
+    $rarray = array();
+    $korisnici = array();
+    $korisnik = array();
+
+    if (checkIfLoggedIn()) {
+
+        $stmt = $conn->prepare('SELECT  
+                                        *
+                                        FROM  korisnik');
+
+        $stmt->bind_result($v1, $v2, $v3, $v4, $v5, $v6);
+        $stmt->execute();
+
+        while ($row = $stmt->fetch()) {
+
+            $korisnik['id'] = $v1;
+            $korisnik['firstname'] = $v2;
+            $korisnik['lastname'] = $v3;
+            $korisnik['username'] = $v4;
+            $korisnik['password'] = $v5;
+            $korisnik['token'] = $v6;
+
+            array_push($korisnici, $korisnik);
+        }
+
+
+        $rarray['korisnici'] = $korisnici;
+        return json_encode($rarray);
+
+    } else {
+
+        $rarray['error'] = "Please log in";
+        header('HTTP/1.1 401 Unauthorized');
+        return json_encode($rarray);
+
+    }
+}
+
+function pronadji_korisnika($username)
+{
+    global $conn;
+    $rarray = array();
+    //$korisnici = array();
+    $korisnik = array();
+
+    if (checkIfLoggedIn()) {
+
+        $stmt = $conn->prepare('SELECT  
+                                        *
+                                        FROM  korisnik
+                                        WHERE username = ?');
+        $stmt->bind_param('s', $username);
+        $stmt->bind_result($v1, $v2, $v3, $v4, $v5, $v6);
+        $stmt->execute();
+
+        while ($row = $stmt->fetch()) {
+
+            $korisnik['id'] = $v1;
+            $korisnik['firstname'] = $v2;
+            $korisnik['lastname'] = $v3;
+            $korisnik['username'] = $v4;
+            $korisnik['password'] = $v5;
+            $korisnik['token'] = $v6;
+
+            //array_push($korisnici, $korisnik);
+        }
+
+
+        //$rarray['korisnik'] = $korisnik;
+        return json_encode($korisnik);
+
+    } else {
+
+        $rarray['error'] = "Please log in";
+        header('HTTP/1.1 401 Unauthorized');
+        return json_encode($rarray);
+
+    }
+}
+
+function izmeniKorisnika($stariUsername, $noviUsername, $password, $firstname, $lastname)
+{
+    global $conn;
+    $rarray = array();
+    $errors = "nema err";
+
+    if (checkIfLoggedIn()) {
+        $stmt = $conn->prepare("UPDATE korisnik SET firstname = ?, lastname = ?, username = ?, password = ? WHERE username = ?");
+        $pass = md5($password);
+        $stmt->bind_param("sssss", $firstname, $lastname, $noviUsername, $pass, $stariUsername);
+
+        if ($stmt->execute()) {
+
+            $rarray['success'] = "Korisnik je uspesno azuriran";
+
+        } else {
+
+            header('HTTP/1.1 400 Bad request');
+            $rarray['error'] = json_encode($errors);
+
+        }
+    } else {
+
+        $rarray['error'] = "Please log in";
+        header('HTTP/1.1 401 Unauthorized');
+        return json_encode($rarray);
+
+    }
+
     return json_encode($rarray);
 }

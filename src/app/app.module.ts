@@ -12,6 +12,9 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
 import {DnevniUnosGlikemijeComponent} from './pages/dnevni-unos-glikemije/dnevni-unos-glikemije.component';
 import {DnevniUnosInsulinaComponent} from './pages/dnevni-unos-insulina/dnevni-unos-insulina.component';
 import {DnevnikComponent} from './pages/dnevnik/dnevnik.component';
+import {Hba1cComponent} from './pages/hba1c/hba1c.component';
+import {IzmeniKorisnikaComponent} from './pages/izmeni-korisnika/izmeni-korisnika.component';
+import {KorisniciComponent} from './pages/korisnici/korisnici.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import {DnevnikComponent} from './pages/dnevnik/dnevnik.component';
     RegisterComponent,
     DnevniUnosGlikemijeComponent,
     DnevniUnosInsulinaComponent,
-    DnevnikComponent
+    DnevnikComponent,
+    Hba1cComponent,
+    IzmeniKorisnikaComponent,
+    KorisniciComponent
   ],
   imports: [
     BrowserModule,

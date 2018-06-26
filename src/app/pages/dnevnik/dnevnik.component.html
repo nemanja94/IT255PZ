@@ -5,7 +5,6 @@
       <thead>
       <tr>
         <th class="text-center text-info" colspan="5" style="border: 1px solid #428bca">Insulin</th>
-        <!--<th class="text-center text-success" colspan="3" style="border: 1px solid #5cb85c">Glikemija</th>-->
       </tr>
       <tr class="text-center">
         <th class="text-info" style="border: 1px solid #428bca">DATUM_I_VREME_IM</th>
@@ -13,9 +12,6 @@
         <th class="text-info" style="border: 1px solid #428bca">TIP_INSULINA</th>
         <th class="text-info" style="border: 1px solid #428bca">TIP_UNOSA</th>
         <th class="text-info" style="border: 1px solid #428bca"></th>
-        <!--<th class="text-success" style="border: 1px solid #5cb85c">Datum</th>-->
-        <!--<th class="text-success" style="border: 1px solid #5cb85c">Vreme</th>-->
-        <!--<th class="text-success" style="border: 1px solid #5cb85c">Vrednost glikemija</th>-->
       </tr>
       </thead>
       <tbody>
@@ -27,31 +23,8 @@
         <td class="text-info" style="border: 1px solid #428bca">
           <button class="btn btn-outline-danger" (click)="obirsi_unos(zapis.ISTORIJA_MERENJA_ID)">Obrisi unos</button>
         </td>
-        <!--<td class="text-success" style="border: 1px solid #5cb85c">{{zapis.datumUnosaGlikemije}}</td>-->
-        <!--<td class="text-success" style="border: 1px solid #5cb85c">{{zapis.vremeUnosaGlikemije}}</td>-->
-        <!--<td class="text-success" style="border: 1px solid #5cb85c">{{zapis.vrednostGlikemije}}</td>-->
       </tr>
       </tbody>
     </table>
   </div>
-
-  <!--<div class="container">-->
-  <!--<h2 class="text-info text-center mt-5">Dnevnik glikemije</h2>-->
-  <!--<table class="table" style="border: 1px solid #428bca; border-radius: 5px;">-->
-  <!--<thead>-->
-  <!--<tr>-->
-  <!--<th>Datum</th>-->
-  <!--<th>Vreme</th>-->
-  <!--<th>Vrednost glikemija</th>-->
-  <!--</tr>-->
-  <!--</thead>-->
-  <!--<tbody>-->
-  <!--<tr *ngFor="let zapis of dnevnik">-->
-  <!--<td>{{zapis.datumUnosaGlikemije}}</td>-->
-  <!--<td>{{zapis.vremeUnosaGlikemije}}</td>-->
-  <!--<td>{{zapis.vrednostGlikemije}}</td>-->
-  <!--</tr>-->
-  <!--</tbody>-->
-  <!--</table>-->
-  <!--</div>-->
 </div>

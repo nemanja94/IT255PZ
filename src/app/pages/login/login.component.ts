@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
   public login() {
     // tslint:disable-next-line:max-line-length
     const data = 'username=' + this.loginForm.value.username + '&password=' + this.loginForm.value.password;
+    localStorage.setItem('username', this.loginForm.value.username);
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
